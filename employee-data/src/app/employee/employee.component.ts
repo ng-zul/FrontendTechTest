@@ -2,17 +2,20 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-employee',
   standalone: true,
-  imports: [CommonModule, TableModule, FormsModule],
+  imports: [CommonModule, TableModule, FormsModule, RouterModule],
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
 
 export class EmployeeComponent implements OnInit {
+  private apiUrl = 'https://api.sampleapis.com/futurama/characters';
+
   characters: any[] = [];
   filteredCharacters: any[] = [];
   searchEmployee: string = '';
@@ -32,11 +35,11 @@ export class EmployeeComponent implements OnInit {
 
   loadCharacters() {
     this.http
-      .get<any[]>('https://api.sampleapis.com/futurama/characters')
+      .get<any[]>(this.apiUrl)
       .subscribe((employees) => {
         this.characters = employees;
-        this.filteredCharacters = [...this.characters]; // Initialize filteredCharacters with all characters
-        this.filterCharacters(); // Apply initial filter
+        this.filteredCharacters = [...this.characters]; 
+        this.filterCharacters(); 
         this.getUniqueSpecies();
         this.getUniqueGender();
       });
@@ -55,14 +58,12 @@ export class EmployeeComponent implements OnInit {
   }
 
   filterCharacters() {
-    // Filter based on search query
     this.filteredCharacters = this.characters.filter(character =>
       character.name.first.toLowerCase().includes(this.searchEmployee.toLowerCase()) ||
       character.name.middle.toLowerCase().includes(this.searchEmployee.toLowerCase()) ||
       character.name.last.toLowerCase().includes(this.searchEmployee.toLowerCase())
     );
   
-    // Filter based on selected species
     const selectedSpeciesCheckboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll('input[name=filter-checkbox]:checked');
     const selectedSpecies: string[] = Array.from(selectedSpeciesCheckboxes).map(checkbox => checkbox.value);
     
@@ -70,7 +71,6 @@ export class EmployeeComponent implements OnInit {
       this.filteredCharacters = this.filteredCharacters.filter(character => selectedSpecies.includes(character.species));
     }
   
-    // Filter based on selected gender
     const selectedGenderRadio: HTMLInputElement | null = document.querySelector('input[name=filter-radio]:checked');
     const selectedGender: string | null = selectedGenderRadio ? selectedGenderRadio.value : null;
   
@@ -79,6 +79,20 @@ export class EmployeeComponent implements OnInit {
     }
   
     this.currentPage = 1;
+  }
+
+  clearFilters() {
+    this.searchEmployee = '';
+  
+    const selectedSpeciesCheckboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll('input[name=filter-checkbox]:checked');
+    selectedSpeciesCheckboxes.forEach(checkbox => checkbox.checked = false);
+  
+    const selectedGenderRadio: HTMLInputElement | null = document.querySelector('input[name=filter-radio]:checked');
+    if (selectedGenderRadio) {
+      selectedGenderRadio.checked = false;
+    }
+  
+    this.filterCharacters();
   }
 
   onPageChange(pageNumber: number) {

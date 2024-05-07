@@ -1,0 +1,19 @@
+.quote-box {
+    flex: 1;
+  }
+  
+  .card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    padding: 0;
+  }
+  
+  .card-text {
+    font-size: 16px;
+  }
+  

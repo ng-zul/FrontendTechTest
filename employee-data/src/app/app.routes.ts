@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EmployeeComponent } from './employee/employee.component';
-import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
+import { EmployeeDetailComponent } from './employee/employee-detail/employee-detail.component';
 
 
 export const routes: Routes = [
@@ -22,6 +22,6 @@ export const routes: Routes = [
     },
     {
         path: 'employee/:id',
-        component: EmployeeDetailsComponent
+        component: EmployeeDetailComponent
     }
 ];

@@ -1,0 +1,105 @@
+<div class="p-5" *ngIf="employeeDetails">
+  <div class="flex gap-5 mb-3">
+    <div>
+      <img
+        class="w-20 h-20 rounded border"
+        src="{{ employeeDetails.images.main }}"
+        alt="Large avatar"
+      />
+    </div>
+    <div>
+      <span class="text-4xl font-sans font-bold">{{
+        employeeDetails.name.first +
+          " " +
+          employeeDetails.name.middle +
+          " " +
+          employeeDetails.name.last
+      }}</span>
+    </div>
+  </div>
+  <hr class="h-1 mx-auto bg-gray-100 border-0 rounded dark:bg-gray-700" />
+
+  <div class="mt-5 mb-5">
+    <div class="p-3 border-dotted rounded border-2 border-grey-600">
+      <h2
+        class="mb-2 text-xl font-semibold leading-none text-gray-900 md:text-2xl dark:text-white"
+      >
+        Personal Info
+      </h2>
+      <div>
+        <p
+          class="mb-4 text-xl font-extrabold leading-none text-gray-900 md:text-2xl dark:text-white"
+        >
+          {{ employeeDetails.gender + ", " + employeeDetails.species }}
+        </p>
+        <dl>
+          <dt
+            class="mb-2 font-semibold leading-none text-gray-900 dark:text-white"
+          >
+            Details
+          </dt>
+          <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+            Living at {{ employeeDetails.homePlanet }}. Working as
+            {{ employeeDetails.occupation }}.
+          </dd>
+        </dl>
+        <dl class="flex items-center space-x-6">
+          <div>
+            <dt
+              class="mb-2 font-semibold leading-none text-gray-900 dark:text-white"
+            >
+              Tag ID
+            </dt>
+            <dd
+              class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"
+            >
+              {{ employeeDetails.id }}
+            </dd>
+          </div>
+          <div>
+            <dt
+              class="mb-2 font-semibold leading-none text-gray-900 dark:text-white"
+            >
+              Age
+            </dt>
+            <dd
+              class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"
+            >
+              {{ employeeDetails.age }} y/o
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="text-center">
+      <span class="text-3xl">Quotes</span>
+      <button
+        class="ml-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        (click)="reshuffleQuotes()"
+      >
+        Reshuffle
+      </button>
+    </div>
+    <div class="mt-3">
+      <div class="gap-4 flex">
+        <div *ngFor="let quote of displayQuotes" class="quote-box">
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text">{{ quote }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button
+    class="mt-5 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+    (click)="goBack()"
+  >
+    Back
+  </button>
+</div>
