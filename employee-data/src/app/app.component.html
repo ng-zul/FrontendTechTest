@@ -1,0 +1,18 @@
+<div class="antialiased bg-gray-50 dark:bg-gray-900">
+  <app-header></app-header>
+  <app-sidenav></app-sidenav>
+
+  <main class="p-4 md:ml-64 h-auto pt-20">
+    <span class="text-lg font-bold">
+      <ng-container *ngIf="routeData$ | async as routeData">
+        {{ routeData.title }}
+      </ng-container>
+    </span>
+
+    <div
+      class="border-2 rounded-lg border-gray-300 dark:border-gray-600 bg-white h-full mb-4 mt-4"
+    >
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>
